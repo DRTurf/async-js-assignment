@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two</title>
+</head>
+<body>
+    <Button id="btn">Get User Name</Button>
+    <ul id="user-list"></ul> <!-- This will hold the list of user names -->
+
+    <script>
+        const btn = document.getElementById("btn")
+        btn.addEventListener('click',()=>{
+            var xhr = new XMLHttpRequest();
+
+            
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) { 
+                    if (xhr.status === 200) { 
+                        var users = JSON.parse(xhr.responseText); 
+                        console.log("User Names:"); 
+                        var userList = document.getElementById('user-list'); 
+                        
+                        
+                        users.forEach(function(user) {
+                            console.log(user); 
+                            var li = document.createElement('li');
+                            li.textContent = user.name; 
+                            userList.appendChild(li);
+                        });
+                    } else {
+                        console.error('Error: ' + xhr.status); 
+                    }
+                }
+            };
+
+            
+            xhr.send();
+            
+        })
+
+          
+                
+            
+    </script>
+</body>
+</html>
